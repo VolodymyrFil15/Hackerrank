@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block Title %}
+    All domains
+{% endblock %}
+{% block body %}
+
+    {% for i in domains %}
+        <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a href="{{ i }}/Introduction/">{{ i }}</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+{% endblock %}

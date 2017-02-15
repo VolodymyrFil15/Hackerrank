@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block Title %}
+    {{ domain }} challenges
+{% endblock %}
+{% block body %}
+
+    <div class="col-sm-12 col-md-18">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'Tasks:index' %}">All domains</a>
+                    >
+                    <a href="{% url 'Tasks:index' %}{{ domain }}/">{{ domain }}</a>
+                </div>
+            </div>
+        </div>
+
+    <br><br>
+
+    <div class="col-sm-12 col-md-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4>Subdomains</h4>
+                </div>
+                {% for i in subdomains %}
+                <div class="panel-body">
+                    <a href="{% url 'Tasks:index' %}{{ domain }}/{{ i }}/">{{ i }}</a><br>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                <h4>Challenges in {{ subdomain }}</h4>
+                </div>
+            </div>
+        </div>
+    <div class="col-sm-12 col-md-10">
+        {% for i in challenges %}
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                <a href="{% url 'Tasks:index' %}{{ domain }}/{{ subdomain }}/{{ i }}/">{{ i }}</a>
+                <br><br>
+                Success Rate: {{ i.success_rate }}% Max Score: {{ i.max_score }} Difficulty: {{ i.difficulty }}
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+{% endblock %}

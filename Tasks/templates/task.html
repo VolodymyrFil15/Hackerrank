@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block Title %}
+    {{ domain }} / {{ name }} challenge
+{% endblock %}
+{% block body %}
+
+        <div class="col-sm-12 col-md-18">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'Tasks:index' %}">All domains</a>
+                    >
+                    <a href="{% url 'Tasks:index' %}{{ domain }}/">{{ domain }}</a>
+                    >
+                    <a href="{% url 'Tasks:index' %}{{ domain }}/{{ subdomain }}/">{{ subdomain }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-18">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ task|safe|linebreaks }}
+                    <form class="form-horizontal" action="" method="post">
+                        {% csrf_token %}
+                        {% include 'form-template.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-5 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% if have_result %}
+        <div class="col-sm-12 col-md-18">
+            <div class="panel panel-default">
+            {% if error %}
+                <div class="panel-body">
+                    {{ error }}
+                </div>
+            {% else %}
+                <div class="panel-body">
+                    {% if solved %}
+                        <p>Congrats, you solved this challenge!</p>
+                        {% else %}
+                        <p>You have not solved</p>
+                    {% endif %}
+                </div>
+                <div class="panel-body">
+                    {% for i in result %}
+                        {% if i.1 %}
+                            <span class="glyphicon glyphicon-ok"></span> Test #{{ i.0 }}
+                            {% else %}
+                            <span class="glyphicon glyphicon-remove"></span> Test #{{ i.0 }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="panel-body">
+                {{ points }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
