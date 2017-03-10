@@ -1,0 +1,29 @@
+body{
+    background: white url("images/background.png");
+}
+
+.block1 {
+    width: 15%;
+    background: #ccc;
+    padding: 5px;
+    float: left;
+    padding-right: 20px;
+    border: solid 1px black;
+}
+
+.content {
+    width: 80%;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 10px;
+    margin:0 auto;
+}
+
+.challenge {
+    width: 83%;
+    height: 100px;
+    background: white;
+    float: right;
+    padding-right: 20px;
+    border: solid 1px #7ee6ff;
+}

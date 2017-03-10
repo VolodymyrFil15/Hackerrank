@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block Title %}
+Leaderboard
+{% endblock %}
+{% block body %}
+    <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                <a href="/leaderboard/python3/">python3</a><br>
+                <a href="/leaderboard/cpp/">cpp</a><br>
+                <a href="/leaderboard/c/">c</a><br>
+                <a href="/leaderboard/java/">java</a><br>
+                </div>
+            </div>
+    </div>
+    <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+    Top 10 {{ domain }} users
+</div>
+            </div>
+    </div>
+    <br><br>
+    <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+    {% for i in users %}
+    {{ i.0 }}   {{ i.1 }}<br>
+    {% endfor %}
+    </div>
+            </div>
+    </div>
+{% endblock %}
