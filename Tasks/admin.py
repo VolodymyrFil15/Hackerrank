@@ -18,6 +18,6 @@ admin.site.register(domain)
 admin.site.register(subdomain, SubdomainView)
 admin.site.register(task, TaskView)
 admin.site.register(Test)
-#admin.site.register(User)
+admin.site.register(User)
 #admin.site.register(TestsLog)
 
