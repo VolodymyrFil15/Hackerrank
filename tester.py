@@ -10,14 +10,16 @@ class test():
         self.expected_output = expected_output
 
 
-class test_producer():
-    def prepare_code(self, code, out_file):
+class TestProducer:
+
+    @staticmethod
+    def prepare_code(code, out_file):
         """Writing code to file"""
         with open(out_file, 'w') as f:
             f.write(code)
 
-
-    def compile_java(self, input_file, java_class):
+    @staticmethod
+    def compile_java(input_file, java_class):
         """Compiling c++ code"""
         command_line = ["javac", input_file]
         s = subprocess.Popen(command_line, stdout = subprocess.PIPE,
@@ -30,8 +32,8 @@ class test_producer():
         else:
             return 1, error
 
-
-    def compile_c(self, input_file):
+    @staticmethod
+    def compile_c(input_file):
         """Compiling c++ code"""
         out_file = input_file[:-2] + '.out'
         command_line = ["gcc", input_file, '-o', out_file, '-std=c99']
@@ -45,7 +47,8 @@ class test_producer():
         else:
             return 1, error
 
-    def compile_cpp(self, input_file):
+    @staticmethod
+    def compile_cpp(input_file):
         """Compiling c++ code"""
         out_file = input_file[:-4] + '.out'
         command_line = ["g++", input_file, '-o', out_file]
@@ -60,20 +63,24 @@ class test_producer():
             return 1, error
 
     def check_python(self, input_file):
-        command_line = ["python3", input_file]
-        s = subprocess.Popen(command_line, stdout = subprocess.PIPE,
-                             stderr = subprocess.PIPE, stdin = subprocess.PIPE, universal_newlines = True)
-        error = s.communicate(self.tests[0].input_values)
+        try:
+            command_line = ["cmd.exe", "python3", input_file]
+            s = subprocess.Popen(command_line, stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE, stdin=subprocess.PIPE, universal_newlines = True)
+            error = s.communicate(self.tests[0].input_values)
+        except Exception as e:
+            print(e)
         sleep(0.5)
         if s.returncode == 0:
             return 0, input_file
         else:
             return 1, error
 
-    def produce_test(self, test, command_line):
+    @staticmethod
+    def produce_test(test, command_line):
         """Producing test"""
-        s = subprocess.Popen(command_line, stdout = subprocess.PIPE, stderr = subprocess.PIPE, stdin = subprocess.PIPE,
-                             universal_newlines = True)
+        s = subprocess.Popen(command_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE,
+                             universal_newlines=True)
         if test.input_values != '':
             q = s.communicate(test.input_values)
         else:
@@ -132,8 +139,6 @@ class test_producer():
             java_class = str(java_class[0])
             self.program_name = compile_return[1] + '.class'
             self.command_line = ['java', java_class]
-
-
 
         for i in self.tests:
             self.tests_result[1].append(self.produce_test(i, self.command_line))

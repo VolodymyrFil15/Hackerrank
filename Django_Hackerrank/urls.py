@@ -22,5 +22,6 @@ urlpatterns = [
 	url(r'^$', views.homepage),
     url(r'^admin/', admin.site.urls, name='admin'),
     url(r'^challenges/', include('Tasks.urls', namespace='Tasks')),
-    url(r'leaderboard/(?P<domain>[a-zA-Z0-9]+)/$', views.leaderboard, name = 'leaderboard'),
+    url(r'leaderboard/(?P<domain>[a-zA-Z0-9]+)/$', views.leaderboard, name='leaderboard'),
+    url(r'accounts/', include('django.contrib.auth.urls', namespace="auth")),
 ]

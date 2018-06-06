@@ -71,7 +71,7 @@ def challenge(request, domain_name, subdomain_name, challenge_name):
                 tests.append([i.test_input.replace('\r', ''), i.test_output.replace('\r', '')])
 
             filename = str(request.user.username) + '_' + challenge_name
-            result = test_producer(tests, code, filename, domain_name).tests_result
+            result = TestProducer(tests, code, filename, domain_name).tests_result
             context['have_result'] = True
             if result[0]:
                 solved = True
@@ -150,7 +150,6 @@ def login_view(request):
         user = authenticate(username = username, password = password)
         if user:
            login(request, user)
-
 
     if request.method == 'GET':
         return render(request, 'registration.html', {'form': form, 'login': True})
